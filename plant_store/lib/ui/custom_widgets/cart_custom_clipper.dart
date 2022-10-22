@@ -6,9 +6,9 @@ class CartCustomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.lineTo(0, size.height * 0.8);
+    path.lineTo(0, size.height * 0.85);
     path.quadraticBezierTo(
-        size.width * 0.45, size.height, size.width, size.height * 0.4);
+        size.width * 0.5, size.height, size.width, size.height * 0.35);
     path.lineTo(size.width, 0);
     return path;
   }

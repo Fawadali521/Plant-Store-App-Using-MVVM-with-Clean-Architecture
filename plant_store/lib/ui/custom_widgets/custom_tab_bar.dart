@@ -25,9 +25,8 @@ class CustomTabBar extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      margin: const EdgeInsets.only(left: 20.0),
-                      height: 250.h,
-                      width: 180,
+                      margin: const EdgeInsets.only(right: 20.0),
+                      width: 220,
                       child: GestureDetector(
                         onTap: () {
                           Navigator.of(context).pushNamed(
@@ -36,25 +35,26 @@ class CustomTabBar extends StatelessWidget {
                         },
                         child: Stack(
                           children: [
+                            //bottom section of container
                             Positioned(
                               bottom: 0,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20)),
                                   color: kColors.textFormColor,
                                 ),
-                                height: 130.h,
-                                width: 180,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
+                                height: 150.h,
+                                width: 218,
+                                child: Container(
+                                  margin: const EdgeInsets.only(
                                       left: 10, right: 10),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(
-                                        height: 100,
-                                      ),
+                                      SizedBox(height: 100.h),
                                       Text(model.cartData[index].typeName,
                                           style: Theme.of(context)
                                               .textTheme
@@ -90,25 +90,29 @@ class CustomTabBar extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            // upper section of container
                             Positioned(
-                              bottom: 30,
+                              bottom: 40,
                               child: ClipPath(
                                 clipper: CartCustomClipper(),
                                 child: Container(
-                                  height: 150.h,
-                                  width: 180,
+                                  height: 170.h,
+                                  width: 200.w,
                                   decoration: BoxDecoration(
                                     color: kColors.cartBackColor,
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20)),
                                   ),
                                 ),
                               ),
                             ),
+                            //image section
                             Positioned(
                               bottom: 80,
                               child: Container(
                                 height: 170.h,
-                                width: 140,
+                                width: 150,
                                 child: Image(
                                     image: AssetImage(
                                         model.cartData[index].imageUrl)),
