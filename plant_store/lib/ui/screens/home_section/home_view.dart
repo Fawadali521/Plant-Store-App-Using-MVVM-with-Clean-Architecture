@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:green_tree/core/utils/constant/kcolors.dart';
-import 'package:green_tree/ui/custom_widgets/main_text.dart';
-import 'package:green_tree/ui/custom_widgets/textformfield.dart';
-import 'package:green_tree/ui/screens/home_section/home_view_model.dart';
-import 'package:provider/provider.dart';
-import 'package:green_tree/core/utils/constant/kcolors.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:green_tree/core/utils/constant/kcolors.dart';
+import 'package:green_tree/core/utils/constant/ktext_style.dart';
+import 'package:green_tree/ui/custom_widgets/custom_icon.dart';
+import 'package:green_tree/ui/custom_widgets/textformfield.dart';
+import 'package:provider/provider.dart';
 import '../../../core/services/data/cat_data.dart';
-import '../../custom_widgets/cart_custom_clipper.dart';
-import '../../custom_widgets/my_custom_clipper.dart';
 import 'package:green_tree/ui/custom_widgets/custom_tab_bar.dart';
+
+import '../../custom_widgets/simple_text.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
+  static const routeName = '/home-view';
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -28,64 +29,56 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       child: Consumer<CartData>(
         builder: (context, model, child) {
           return Scaffold(
-            body: Container(
-              padding: const EdgeInsets.all(20),
-              color: kColors.whiteColor,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: const DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('images/gril1.jpg'),
+            body: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                color: kColors.whiteColor,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 40.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 40.w,
+                          height: 40.h,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage('images/girl.jpg'),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
+                        CustomIcon(
                           color: kColors.mainColor,
-                          borderRadius: BorderRadius.circular(20),
+                          icon: Icon(
+                            Icons.shopping_cart_outlined,
+                            color: kColors.whiteColor,
+                          ),
                         ),
-                        child: const Icon(
-                          Icons.shopping_cart_outlined,
-                          color: kColors.whiteColor,
-                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Text("Let's find your plants!",
+                        style: Theme.of(context).textTheme.bodyLarge),
+                    SizedBox(height: 15.h),
+                    TextFormFields(
+                      hintText: 'Search Plant',
+                      pIcon: const Icon(
+                        Icons.search,
+                        color: kColors.mainColor,
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Text("Let's find your plants!",
-                      style: Theme.of(context).textTheme.bodyLarge),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  TextFormFields(
-                    hintText: 'Search Plant',
-                    pIcon: Icon(
-                      Icons.search,
-                      color: kColors.mainColor,
+                      sIcon: const Icon(
+                        Icons.keyboard_voice_sharp,
+                        color: kColors.mainColor,
+                      ),
                     ),
-                    sIcon: Icon(
-                      Icons.keyboard_voice_sharp,
-                      color: kColors.mainColor,
-                    ),
-                  ),
-                  Container(
-                    child: Align(
+                    SizedBox(height: 10.h),
+                    Align(
                       alignment: Alignment.centerLeft,
                       child: TabBar(
                           indicator: BoxDecoration(
@@ -113,63 +106,64 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                             ),
                           ]),
                     ),
-                  ),
-                  CustomTabBar(controller: tabController),
-                  Text(
-                    'Recent Viewed',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  Container(
-                    height: 60,
-                    width: double.maxFinite,
-                    child: ListView.builder(
-                        itemCount: model.cartData.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            height: 60,
-                            width: 260,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  //margin: const EdgeInsets.only(right: 50.0),
-                                  width: 60.0,
-                                  height: 60.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: kColors.recentBackColor,
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            model.cartData[index].imageUrl),
-                                        fit: BoxFit.cover),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(model.cartData[index].name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium),
-                                    SizedBox(
-                                      height: 5,
+                    CustomTabBar(controller: tabController),
+                    SizedBox(height: 10.h),
+                    SimpleText(
+                      text: 'Recent Viewed',
+                      color: kColors.mainColor,
+                      fontweight: FontWeight.bold,
+                      fontsize: 20,
+                    ),
+                    SizedBox(height: 10.h),
+                    Container(
+                      height: 60,
+                      width: double.maxFinite,
+                      child: ListView.builder(
+                          itemCount: model.cartData.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              height: 60.h,
+                              width: 220.w,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    //margin: const EdgeInsets.only(right: 50.0),
+                                    width: 60.0,
+                                    height: 60.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: kColors.recentBackColor,
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              model.cartData[index].imageUrl),
+                                          fit: BoxFit.cover),
                                     ),
-                                    Text(model.cartData[index].description,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall),
-                                  ],
-                                )
-                              ],
-                            ),
-                          );
-                        }),
-                  ),
-                ],
+                                  ),
+                                  SizedBox(width: 15.h),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(model.cartData[index].name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(model.cartData[index].description,
+                                          style: kTextStyle().smallGreyText),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
+                ),
               ),
             ),
             bottomNavigationBar: Container(

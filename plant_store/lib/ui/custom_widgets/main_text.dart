@@ -15,7 +15,6 @@ class MainText extends StatelessWidget {
             child: Container(
               height: 60.h,
               width: 60.h,
-              margin: EdgeInsets.only(right: 10),
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
@@ -30,10 +29,8 @@ class MainText extends StatelessWidget {
               Text(largeText, style: Theme.of(context).textTheme.bodyLarge),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  smallText,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+                child: Text(smallText,
+                    style: Theme.of(context).textTheme.bodySmall),
               ),
             ],
           ),
