@@ -6,6 +6,7 @@ import 'package:green_tree/core/utils/constant/kcolors.dart';
 import 'package:green_tree/core/utils/constant/ktext_style.dart';
 import 'package:green_tree/ui/custom_widgets/custom_icon.dart';
 import 'package:green_tree/ui/custom_widgets/textformfield.dart';
+import 'package:green_tree/ui/screens/my_cart/my_cart_view.dart';
 import 'package:provider/provider.dart';
 import '../../../core/services/data/cat_data.dart';
 import 'package:green_tree/ui/custom_widgets/custom_tab_bar.dart';
@@ -51,11 +52,18 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
-                        CustomIcon(
-                          color: kColors.mainColor,
-                          icon: Icon(
-                            Icons.shopping_cart_outlined,
-                            color: kColors.whiteColor,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              MyCartView.routeName,
+                            );
+                          },
+                          child: CustomIcon(
+                            color: kColors.mainColor,
+                            icon: Icon(
+                              Icons.shopping_cart_outlined,
+                              color: kColors.whiteColor,
+                            ),
                           ),
                         ),
                       ],
